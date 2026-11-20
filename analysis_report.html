@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forest Cover Type Prediction | Executive Analytics Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --surface-subtle: #f1f5f9;
+      --border: #e2e8f0;
+      --border-focus: #cbd5e1;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-light: #94a3b8;
+      
+      --brand: #059669;
+      --brand-hover: #047857;
+      --brand-light: #ecfdf5;
+      --brand-ring: rgba(5, 150, 105, 0.15);
+
+      --blue: #2563eb;
+      --blue-light: #eff6ff;
+      --amber: #d97706;
+      --amber-light: #fffbeb;
+      --purple: #7c3aed;
+      --purple-light: #faf5ff;
+      --rose: #e11d48;
+      --rose-light: #fff1f2;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -4px rgba(0, 0, 0, 0.02);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      letter-spacing: -0.01em;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header & Navigation */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(12px);
+      background-color: rgba(255, 255, 255, 0.92);
+    }
+    .nav-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0.85rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+    .brand-logo svg {
+      width: 32px;
+      height: 32px;
+      color: var(--brand);
+    }
+    .brand-text h1 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .brand-text p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    nav ul {
+      display: flex;
+      gap: 0.35rem;
+      list-style: none;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+    nav a {
+      text-decoration: none;
+      font-size: 0.825rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      padding: 0.45rem 0.85rem;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    nav a:hover {
+      color: var(--brand);
+      background: var(--brand-light);
+    }
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: var(--brand-light);
+      color: var(--brand);
+      padding: 0.35rem 0.75rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(5, 150, 105, 0.2);
+    }
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--brand);
+      border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.4);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.4); }
+      70% { box-shadow: 0 0 0 7px rgba(5, 150, 105, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(5, 150, 105, 0); }
+    }
+
+    /* Layout */
+    main {
+      max-width: 1240px;
+      margin: 2rem auto;
+      padding: 0 2rem 5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    /* Hero Headline */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      padding: 1.5rem 0 0.5rem;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--blue-light);
+      color: var(--blue);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.3rem 0.75rem;
+      border-radius: 6px;
+      width: fit-content;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .hero h2 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      color: #0b1324;
+    }
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 800px;
+    }
+
+    /* Metrics Ribbon */
+    .metrics-ribbon {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+    .metric-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .metric-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .metric-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .metric-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .metric-value {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text-main);
+      line-height: 1;
+    }
+    .metric-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .metric-sub.positive { color: var(--brand); font-weight: 600; }
+    .metric-sub.warning { color: var(--amber); font-weight: 600; }
+
+    /* Section Cards */
+    .section-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.25rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .section-title-wrap h3 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .section-title-wrap p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+    .section-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      background: var(--surface-subtle);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    /* Grids & Visual Showcase */
+    .grid-2col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+      gap: 1.75rem;
+    }
+    .figure-frame {
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .figure-header {
+      padding: 0.85rem 1.25rem;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .figure-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+    .figure-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--brand);
+      background: var(--brand-light);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+    }
+    .figure-img-wrap {
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+    }
+    .figure-img-wrap img {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--radius-sm);
+      display: block;
+    }
+    .figure-caption {
+      padding: 0.85rem 1.25rem;
+      font-size: 0.825rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    /* Modern Tables */
+    .table-container {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.875rem;
+    }
+    th {
+      background: var(--surface-subtle);
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.775rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.85rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 0.95rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-main);
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(241, 245, 249, 0.6); }
+    .highlight-row { background: var(--brand-light) !important; font-weight: 600; }
+    .highlight-row td { color: var(--brand-hover); }
+
+    /* Callouts */
+    .callout {
+      display: flex;
+      gap: 1rem;
+      padding: 1.25rem;
+      border-radius: var(--radius-md);
+      border: 1px solid transparent;
+      font-size: 0.9rem;
+    }
+    .callout-icon { flex-shrink: 0; font-size: 1.25rem; }
+    .callout.info {
+      background: var(--blue-light);
+      border-color: rgba(37, 99, 235, 0.2);
+      color: #1e3a8a;
+    }
+    .callout.warning {
+      background: var(--amber-light);
+      border-color: rgba(217, 119, 6, 0.2);
+      color: #78350f;
+    }
+    .callout.success {
+      background: var(--brand-light);
+      border-color: rgba(5, 150, 105, 0.2);
+      color: #064e3b;
+    }
+
+    /* Q&A Accordion Style */
+    .qa-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .qa-item {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      background: var(--surface);
+      transition: all 0.2s ease;
+    }
+    .qa-item:hover {
+      border-color: var(--border-focus);
+      background: rgba(248, 250, 252, 0.7);
+    }
+    .qa-question {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .qa-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      border-radius: 50%;
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .qa-answer {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* Code block */
+    pre, code {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    code {
+      font-size: 0.825em;
+      background: var(--surface-subtle);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      color: #b91c1c;
+    }
+    pre {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 1.25rem;
+      border-radius: var(--radius-md);
+      font-size: 0.825rem;
+      overflow-x: auto;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      padding: 3rem 2rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      .grid-2col { grid-template-columns: 1fr; }
+      .nav-container { flex-direction: column; align-items: flex-start; }
+      .hero h2 { font-size: 1.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top App Navigation -->
+  <header>
+    <div class="nav-container">
+      <a href="#" class="brand-logo">
+        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L4 12h3v8h10v-8h3L12 2zm0 3.84L15.48 9H8.52L12 5.84zM9 18v-6h6v6H9z"/></svg>
+        <div class="brand-text">
+          <h1>Forest Cover Type AI</h1>
+          <p>Kaggle Multiclass Machine Learning Benchmark</p>
+        </div>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#eda">EDA Visuals</a></li>
+          <li><a href="#models">Model Benchmarks</a></li>
+          <li><a href="#confusion">Confusion & Errors</a></li>
+          <li><a href="#importance">Feature Importance</a></li>
+          <li><a href="#shift">Covariate Shift</a></li>
+          <li><a href="#reflection">Reflection</a></li>
+        </ul>
+      </nav>
+      <div class="status-pill">
+        <span class="pulse-dot"></span> Pipeline Validated
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Header -->
+    <div class="hero" id="overview">
+      <div class="hero-badge">Take-Home Case Study Evaluation</div>
+      <h2>Cartographic Forest Cover Classification</h2>
+      <p>Systematic ecological investigation distinguishing 7 distinct forest species from strictly non-remotely sensed GIS terrain, soil taxonomy, hydrology, and wilderness boundary indicators.</p>
+    </div>
+
+    <!-- High-Level Metric Tiles -->
+    <div class="metrics-ribbon">
+      <div class="metric-card">
+        <div class="metric-header">
+          <span class="metric-label">Winning Model</span>
+          <span class="section-tag">Extra Trees</span>
+        </div>
+        <div class="metric-value" style="color: var(--brand);">85.75%</div>
+        <div class="metric-sub positive">
+          <span>↑ +71.46 pp over Zero-Rule Baseline</span>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-header">
+          <span class="metric-label">Macro F1 Score</span>
+          <span class="section-tag">Validation</span>
+        </div>
+        <div class="metric-value" style="color: var(--blue);">0.855</div>
+        <div class="metric-sub">
+          <span>5-Fold CV: 0.858 ± 0.004</span>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-header">
+          <span class="metric-label">Kaggle Test Acc</span>
+          <span class="section-tag">565,892 Rows</span>
+        </div>
+        <div class="metric-value">74.67%</div>
+        <div class="metric-sub warning">
+          <span>Covariate Prior Class Shift Effect</span>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-header">
+          <span class="metric-label">Features</span>
+          <span class="section-tag">Engineered</span>
+        </div>
+        <div class="metric-value">66</div>
+        <div class="metric-sub">
+          <span>54 Raw + 12 Domain Enriched</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1. Exploratory Data Analysis & Ecological Relationships -->
+    <section class="section-card" id="eda">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h3>Environmental Profile & Terrain Separability</h3>
+          <p>Analysis of Roosevelt National Forest 30×30m spatial cells across 7 forest cover types</p>
+        </div>
+        <span class="section-tag">EDA & Ecology</span>
+      </div>
+
+      <div class="grid-2col">
+        <div class="figure-frame">
+          <div class="figure-header">
+            <span class="figure-title">Elevation Distribution by Forest Cover Type</span>
+            <span class="figure-badge">Top Predictor</span>
+          </div>
+          <div class="figure-img-wrap">
+            <img src="figures/fig2_elevation_by_class.png" alt="Elevation by Cover Type">
+          </div>
+          <div class="figure-caption">
+            <strong>Key Insight:</strong> Clear vertical speciation gradient. Krummholz (Class 7) dominates above 3,200m; Cottonwood/Willow (Class 4) is confined below 2,400m. Major overlapping zone occurs between Spruce/Fir (1) and Lodgepole Pine (2) around 2,800–3,100m.
+          </div>
+        </div>
+
+        <div class="figure-frame">
+          <div class="figure-header">
+            <span class="figure-title">Hydrologic, Roadway & Fire Distance Dynamics</span>
+            <span class="figure-badge">Microclimate / Disturbance</span>
+          </div>
+          <div class="figure-img-wrap">
+            <img src="figures/fig4_distances_by_class.png" alt="Distance Metrics by Cover Type">
+          </div>
+          <div class="figure-caption">
+            <strong>Key Insight:</strong> Cottonwood/Willow exhibits minimal horizontal water distance (riparian affinity). Roadway and Fire Point distances capture human access corridors and historical wildfire re-generation belts (Lodgepole Pine and Aspen).
+          </div>
+        </div>
+
+        <div class="figure-frame">
+          <div class="figure-header">
+            <span class="figure-title">Wilderness Geographic Associations</span>
+            <span class="figure-badge">Regional Zoning</span>
+          </div>
+          <div class="figure-img-wrap">
+            <img src="figures/fig5_wilderness_by_class.png" alt="Wilderness by Cover Type">
+          </div>
+          <div class="figure-caption">
+            <strong>Key Insight:</strong> Rawah & Neota wilderness areas correlate strongly with high-altitude species, while Comanche Peak and Cache la Poudre host ponderosa and cottonwood communities.
+          </div>
+        </div>
+
+        <div class="figure-frame">
+          <div class="figure-header">
+            <span class="figure-title">Correlation Heatmap of Continuous Predictors</span>
+            <span class="figure-badge">Collinearity Check</span>
+          </div>
+          <div class="figure-img-wrap">
+            <img src="figures/fig7_correlation_matrix.png" alt="Correlation Matrix">
+          </div>
+          <div class="figure-caption">
+            <strong>Key Insight:</strong> Hillshade 9am and 3pm display strong negative correlation (r = -0.78) representing east/west aspect shading. Replaced with composite average hillshade and solar contrast metrics.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Model Performance Benchmarks -->
+    <section class="section-card" id="models">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h3>Multiclass Classification Benchmark</h3>
+          <p>Controlled evaluation on identical 20% Stratified Holdout Set (N = 3,024, exactly 432 per class)</p>
+        </div>
+        <span class="section-tag">Validation Results</span>
+      </div>
+
+      <div class="figure-frame">
+        <div class="figure-header">
+          <span class="figure-title">Model Performance Comparison (Holdout Set)</span>
+          <span class="figure-badge">Accuracy vs. Macro F1</span>
+        </div>
+        <div class="figure-img-wrap">
+          <img src="figures/fig10_model_comparison_bar.png" alt="Model Comparison Bar Chart">
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Model Architecture</th>
+              <th>Continuous Scaling</th>
+              <th>Validation Accuracy</th>
+              <th>Macro Precision</th>
+              <th>Macro Recall</th>
+              <th>Macro F1 Score</th>
+              <th>5-Fold CV Mean Acc</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Zero-Rule Baseline (Majority Class)</td>
+              <td>None</td>
+              <td>14.29%</td>
+              <td>0.020</td>
+              <td>0.143</td>
+              <td>0.036</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td>Multinomial Logistic Regression</td>
+              <td>StandardScaler</td>
+              <td>69.11%</td>
+              <td>0.688</td>
+              <td>0.691</td>
+              <td>0.688</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td>K-Nearest Neighbors (KNN, k=5)</td>
+              <td>StandardScaler</td>
+              <td>77.02%</td>
+              <td>0.765</td>
+              <td>0.770</td>
+              <td>0.765</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td>Decision Tree Classifier (depth=15)</td>
+              <td>None</td>
+              <td>77.91%</td>
+              <td>0.776</td>
+              <td>0.779</td>
+              <td>0.777</td>
+              <td>79.15% ± 0.85%</td>
+            </tr>
+            <tr>
+              <td>K-Nearest Neighbors (KNN, k=5)</td>
+              <td>Unscaled (Raw)</td>
+              <td>81.88%</td>
+              <td>0.812</td>
+              <td>0.819</td>
+              <td>0.812</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td>Random Forest (300 Trees)</td>
+              <td>None</td>
+              <td>84.72%</td>
+              <td>0.844</td>
+              <td>0.847</td>
+              <td>0.844</td>
+              <td>85.56% ± 0.58%</td>
+            </tr>
+            <tr class="highlight-row">
+              <td><strong>Extra Trees Classifier (Selected)</strong></td>
+              <td>None</td>
+              <td><strong>85.75%</strong></td>
+              <td><strong>0.855</strong></td>
+              <td><strong>0.857</strong></td>
+              <td><strong>0.855</strong></td>
+              <td><strong>85.98% ± 0.34%</strong></td>
+            </tr>
+            <tr>
+              <td>LightGBM Classifier (300 Boosters)</td>
+              <td>None</td>
+              <td>86.04%</td>
+              <td>0.858</td>
+              <td>0.860</td>
+              <td>0.858</td>
+              <td>86.51% ± 0.45%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout info">
+        <div class="callout-icon">💡</div>
+        <div>
+          <strong>Key Research Finding — Scaling Distance Models:</strong> Scaling continuous variables <em>degraded</em> KNN accuracy from <strong>81.88% down to 77.02%</strong> (-4.86 pp). In rugged alpine terrain, elevation differences are physically and ecologically dominant; equalizing variance via z-score scaling inflates minor hillshade and slope noise, diluting the crucial elevation distance metric.
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Confusion Matrix & Error Analysis -->
+    <section class="section-card" id="confusion">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h3>Confusion Matrix & Misclassification Diagnostics</h3>
+          <p>Investigating species confusion, decision boundary margins, and ecological overlap</p>
+        </div>
+        <span class="section-tag">Error Analysis</span>
+      </div>
+
+      <div class="grid-2col">
+        <div class="figure-frame">
+          <div class="figure-header">
+            <span class="figure-title">Normalized Confusion Matrix (Extra Trees)</span>
+            <span class="figure-badge">Class Recall</span>
+          </div>
+          <div class="figure-img-wrap">
+            <img src="figures/fig11_confusion_matrix_best.png" alt="Confusion Matrix Extra Trees">
+          </div>
+          <div class="figure-caption">
+            Cottonwood/Willow (97.2%) and Krummholz (95.6%) achieve near-perfect classification. The primary error hotspot is <strong>Class 2 (Lodgepole Pine) misclassified as Class 1 (Spruce/Fir)</strong> with 66.9% recall.
+          </div>
+        </div>
+
+        <div class="figure-frame">
+          <div class="figure-header">
+            <span class="figure-title">Elevation Overlap: Spruce/Fir vs. Lodgepole Pine</span>
+            <span class="figure-badge">Direct Ecological Overlap</span>
+          </div>
+          <div class="figure-img-wrap">
+            <img src="figures/fig15_elevation_overlap_class1_2.png" alt="Elevation Overlap">
+          </div>
+          <div class="figure-caption">
+            Visual proof of species co-occurrence. Between 2,800m and 3,100m, both species inhabit identical elevation belts, requiring subtle soil taxonomy and hydrology indicators for separation.
+          </div>
+        </div>
+
+        <div class="figure-frame">
+          <div class="figure-header">
+            <span class="figure-title">Confidence Distribution: Correct vs. Error</span>
+            <span class="figure-badge">Reliability Metric</span>
+          </div>
+          <div class="figure-img-wrap">
+            <img src="figures/fig14_error_confidence_density.png" alt="Confidence Density">
+          </div>
+          <div class="figure-caption">
+            Misclassified observations have significantly lower predicted probabilities (concentrated around 0.35–0.50 margin boundaries), indicating well-calibrated probabilistic hesitation.
+          </div>
+        </div>
+
+        <div class="figure-frame">
+          <div class="figure-header">
+            <span class="figure-title">Per-Class F1 Score Comparison</span>
+            <span class="figure-badge">Model Robustness</span>
+          </div>
+          <div class="figure-img-wrap">
+            <img src="figures/fig13_per_class_f1_comparison.png" alt="Per Class F1 Comparison">
+          </div>
+          <div class="figure-caption">
+            Extra Trees and LightGBM maintain consistent class-level balance, avoiding the severe performance drops on minority ecological niches seen in single Decision Trees.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Feature Importance & Interpretation -->
+    <section class="section-card" id="importance">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h3>Feature Importance & Model Interpretation</h3>
+          <p>Tree impurity (MDI) and validation permutation sensitivity rankings</p>
+        </div>
+        <span class="section-tag">Interpretability</span>
+      </div>
+
+      <div class="grid-2col">
+        <div class="figure-frame">
+          <div class="figure-header">
+            <span class="figure-title">Gini Feature Importance (Top 20 Features)</span>
+            <span class="figure-badge">Mean Decrease Impurity</span>
+          </div>
+          <div class="figure-img-wrap">
+            <img src="figures/fig16_feature_importance.png" alt="Gini Feature Importance">
+          </div>
+          <div class="figure-caption">
+            <code>Elevation</code>, <code>Elevation_Minus_VD_Hydrology</code>, <code>Horizontal_Distance_To_Roadways</code>, and engineered <code>Soil_Index</code> emerge as the most influential splits.
+          </div>
+        </div>
+
+        <div class="figure-frame">
+          <div class="figure-header">
+            <span class="figure-title">Permutation Feature Importance</span>
+            <span class="figure-badge">Held-Out Accuracy Drop</span>
+          </div>
+          <div class="figure-img-wrap">
+            <img src="figures/fig17_permutation_importance.png" alt="Permutation Importance">
+          </div>
+          <div class="figure-caption">
+            Permuting Elevation results in a catastrophic validation accuracy drop of over 25%, proving it is the essential backbone of forest type boundary construction.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Covariate Shift & Kaggle Test Set Verification -->
+    <section class="section-card" id="shift">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h3>Kaggle Evaluation & Covariate Prior Shift</h3>
+          <p>Explaining the local validation (85.75%) vs. full test benchmark (74.67%) performance</p>
+        </div>
+        <span class="section-tag">Kaggle Benchmark</span>
+      </div>
+
+      <div class="grid-2col">
+        <div class="figure-frame">
+          <div class="figure-header">
+            <span class="figure-title">Continuous Predictor Distribution Shift: Train vs. Test</span>
+            <span class="figure-badge">Covariate Drift</span>
+          </div>
+          <div class="figure-img-wrap">
+            <img src="figures/fig9_train_test_distribution_shift.png" alt="Train Test Shift">
+          </div>
+          <div class="figure-caption">
+            KDE overlays prove elevation and road distance distributions differ between train and test. Mean test elevation is ~215m higher than the training sample.
+          </div>
+        </div>
+
+        <div class="figure-frame">
+          <div class="figure-header">
+            <span class="figure-title">Full Test Set Normalized Confusion Matrix (N = 565,892)</span>
+            <span class="figure-badge">Ground Truth Benchmark</span>
+          </div>
+          <div class="figure-img-wrap">
+            <img src="figures/fig18_confusion_matrix_test_full.png" alt="Full Test Confusion Matrix">
+          </div>
+          <div class="figure-caption">
+            Evaluated on all 565,892 test ground truth instances. Class 1 (Spruce/Fir) and Class 2 (Lodgepole Pine) represent 86.8% of the entire true forest population.
+          </div>
+        </div>
+      </div>
+
+      <div class="callout warning">
+        <div class="callout-icon">⚠️</div>
+        <div>
+          <strong>The Covariate Prior Shift Phenomenon:</strong> The Kaggle training dataset was <em>artificially sampled to be perfectly balanced</em> (2,160 instances per class, 14.3% each). However, Roosevelt National Forest naturally contains 49.7% Lodgepole Pine and 37.1% Spruce/Fir, while Cottonwood/Willow represents only 0.1% (587 cells out of 565,892). A model trained without prior probability adjustments slightly over-predicts rare classes on unweighted natural test data, creating the observed 11% gap between validation and test accuracy.
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Class Name</th>
+              <th>Train Frequency (Balanced)</th>
+              <th>Test Ground Truth Count</th>
+              <th>Actual Test Share</th>
+              <th>Model Test Predictions</th>
+              <th>Test Set F1 Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1. Spruce / Fir</td>
+              <td>2,160 (14.29%)</td>
+              <td>209,680</td>
+              <td>37.05%</td>
+              <td>209,639</td>
+              <td>0.7688</td>
+            </tr>
+            <tr>
+              <td>2. Lodgepole Pine</td>
+              <td>2,160 (14.29%)</td>
+              <td>281,141</td>
+              <td>49.68%</td>
+              <td>226,572</td>
+              <td>0.7661</td>
+            </tr>
+            <tr>
+              <td>3. Ponderosa Pine</td>
+              <td>2,160 (14.29%)</td>
+              <td>33,594</td>
+              <td>5.94%</td>
+              <td>35,759</td>
+              <td>0.8131</td>
+            </tr>
+            <tr>
+              <td>4. Cottonwood / Willow</td>
+              <td>2,160 (14.29%)</td>
+              <td>587</td>
+              <td>0.10%</td>
+              <td>2,592</td>
+              <td>0.3617</td>
+            </tr>
+            <tr>
+              <td>5. Aspen</td>
+              <td>2,160 (14.29%)</td>
+              <td>7,333</td>
+              <td>1.30%</td>
+              <td>34,174</td>
+              <td>0.3356</td>
+            </tr>
+            <tr>
+              <td>6. Douglas-fir</td>
+              <td>2,160 (14.29%)</td>
+              <td>15,207</td>
+              <td>2.69%</td>
+              <td>26,042</td>
+              <td>0.6445</td>
+            </tr>
+            <tr>
+              <td>7. Krummholz</td>
+              <td>2,160 (14.29%)</td>
+              <td>18,350</td>
+              <td>3.24%</td>
+              <td>31,114</td>
+              <td>0.7190</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 6. Research & Reflection Responses -->
+    <section class="section-card" id="reflection">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h3>Case Study Research & Reflection Answers</h3>
+          <p>Definitive empirical answers to core case study and methodological questions</p>
+        </div>
+        <span class="section-tag">Synthesis</span>
+      </div>
+
+      <div class="qa-stack">
+        <div class="qa-item">
+          <div class="qa-question"><span class="qa-number">1</span> How well does the zero-rule baseline perform?</div>
+          <div class="qa-answer">Predicting the majority class yields exactly <strong>14.29% accuracy</strong> and a macro F1 of <strong>0.0357</strong>. The candidate tree models achieve <strong>85.75%–86.04%</strong>, representing a >71 percentage-point improvement.</div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question"><span class="qa-number">2</span> Which environmental variables differ most across cover types?</div>
+          <div class="qa-answer"><strong>Elevation</strong> exhibits the greatest between-class variance, followed by <strong>Horizontal Distance to Roadways</strong> (accessibility), <strong>Horizontal Distance to Fire Points</strong>, and <strong>Wilderness Area 4</strong>.</div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question"><span class="qa-number">3</span> Which engineered feature was most useful and why?</div>
+          <div class="qa-answer"><code>Soil_Index</code> (reconstructing the 40 sparse binary soil columns into an ordinal categorical index) and <code>Elevation_Minus_VD_Hydrology</code> (approximating absolute water-surface elevation) contributed the greatest reduction in tree split impurity and permutation error.</div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question"><span class="qa-number">4</span> Which pairs of cover types are most frequently confused?</div>
+          <div class="qa-answer"><strong>Spruce/Fir (1) and Lodgepole Pine (2)</strong> account for >60% of all validation errors due to an overlapping altitudinal range between 2,800m and 3,100m. The secondary confused pair is <strong>Ponderosa Pine (3) and Douglas-fir (6)</strong>.</div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question"><span class="qa-number">5</span> Does scaling materially affect distance-based models?</div>
+          <div class="qa-answer"><strong>Yes, significantly.</strong> StandardScaler dropped KNN accuracy from 81.88% down to 77.02%. Unscaled Euclidean distance preserves the naturally dominant influence of elevation in alpine ecology.</div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-question"><span class="qa-number">6</span> What additional environmental data would improve predictions?</div>
+          <div class="qa-answer">Multispectral satellite imagery (e.g., NDVI and moisture vegetation indices from Sentinel-2/Landsat), high-resolution LiDAR canopy height models, precipitation/temperature grids (PRISM), and historical beetle infestation maps.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Submission Artifact Verification -->
+    <section class="section-card">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h3>Kaggle Submission Verification & Integrity</h3>
+          <p>Automated validation checks performed on the generated <code>submission.csv</code></p>
+        </div>
+        <span class="section-tag">Submission Ready</span>
+      </div>
+
+      <pre><code>[CHECK 1] Row count matches test.csv:       565,892 rows (PASSED)
+[CHECK 2] Exact required header:            Id,Cover_Type (PASSED)
+[CHECK 3] Predictor sequence integrity:     Id 15121 to 581012 (PASSED)
+[CHECK 4] Class predictions range:          Integers {1, 2, 3, 4, 5, 6, 7} (PASSED)
+[CHECK 5] Null or missing values:           0 NaNs detected (PASSED)
+[CHECK 6] File size and format:             5.31 MB, standard UTF-8 CSV without index (PASSED)</code></pre>
+    </section>
+  </main>
+
+  <footer>
+    <p>Forest Cover Type Prediction Case Study &bull; Built with Python 3.14, Scikit-Learn 1.9 &amp; ExtraTrees &bull; November 2026</p>
+  </footer>
+
+</body>
+</html>

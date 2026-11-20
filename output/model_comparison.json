@@ -1,0 +1,266 @@
+{
+  "Zero-Rule (Baseline)": {
+    "accuracy": 0.14285714285714285,
+    "macro_precision": 0.02040816326530612,
+    "macro_recall": 0.14285714285714285,
+    "macro_f1": 0.03571428571428571,
+    "per_class_f1": {
+      "Spruce/Fir": 0.25,
+      "Lodgepole Pine": 0.0,
+      "Ponderosa Pine": 0.0,
+      "Cottonwood/Willow": 0.0,
+      "Aspen": 0.0,
+      "Douglas-fir": 0.0,
+      "Krummholz": 0.0
+    },
+    "per_class_precision": {
+      "Spruce/Fir": 0.14285714285714285,
+      "Lodgepole Pine": 0.0,
+      "Ponderosa Pine": 0.0,
+      "Cottonwood/Willow": 0.0,
+      "Aspen": 0.0,
+      "Douglas-fir": 0.0,
+      "Krummholz": 0.0
+    },
+    "per_class_recall": {
+      "Spruce/Fir": 1.0,
+      "Lodgepole Pine": 0.0,
+      "Ponderosa Pine": 0.0,
+      "Cottonwood/Willow": 0.0,
+      "Aspen": 0.0,
+      "Douglas-fir": 0.0,
+      "Krummholz": 0.0
+    }
+  },
+  "Decision Tree": {
+    "accuracy": 0.7791005291005291,
+    "macro_precision": 0.7762568646860659,
+    "macro_recall": 0.7791005291005292,
+    "macro_f1": 0.7768811801762602,
+    "per_class_f1": {
+      "Spruce/Fir": 0.6727898966704937,
+      "Lodgepole Pine": 0.5671641791044776,
+      "Ponderosa Pine": 0.7308584686774942,
+      "Cottonwood/Willow": 0.9291521486643438,
+      "Aspen": 0.8498896247240618,
+      "Douglas-fir": 0.7652370203160271,
+      "Krummholz": 0.9230769230769231
+    },
+    "per_class_precision": {
+      "Spruce/Fir": 0.6674259681093394,
+      "Lodgepole Pine": 0.6129032258064516,
+      "Ponderosa Pine": 0.7325581395348837,
+      "Cottonwood/Willow": 0.9324009324009324,
+      "Aspen": 0.8122362869198312,
+      "Douglas-fir": 0.7466960352422908,
+      "Krummholz": 0.9295774647887324
+    },
+    "per_class_recall": {
+      "Spruce/Fir": 0.6782407407407407,
+      "Lodgepole Pine": 0.5277777777777778,
+      "Ponderosa Pine": 0.7291666666666666,
+      "Cottonwood/Willow": 0.9259259259259259,
+      "Aspen": 0.8912037037037037,
+      "Douglas-fir": 0.7847222222222222,
+      "Krummholz": 0.9166666666666666
+    }
+  },
+  "KNN (Unscaled)": {
+    "accuracy": 0.8187830687830688,
+    "macro_precision": 0.8118327059485753,
+    "macro_recall": 0.8187830687830688,
+    "macro_f1": 0.8122583588573852,
+    "per_class_f1": {
+      "Spruce/Fir": 0.6972704714640199,
+      "Lodgepole Pine": 0.6215864759427828,
+      "Ponderosa Pine": 0.7813953488372093,
+      "Cottonwood/Willow": 0.9352678571428571,
+      "Aspen": 0.8879310344827587,
+      "Douglas-fir": 0.8304891922639362,
+      "Krummholz": 0.9318681318681319
+    },
+    "per_class_precision": {
+      "Spruce/Fir": 0.7513368983957219,
+      "Lodgepole Pine": 0.7091988130563798,
+      "Ponderosa Pine": 0.7850467289719626,
+      "Cottonwood/Willow": 0.9030172413793104,
+      "Aspen": 0.8306451612903226,
+      "Douglas-fir": 0.8165548098434005,
+      "Krummholz": 0.8870292887029289
+    },
+    "per_class_recall": {
+      "Spruce/Fir": 0.6504629629629629,
+      "Lodgepole Pine": 0.5532407407407407,
+      "Ponderosa Pine": 0.7777777777777778,
+      "Cottonwood/Willow": 0.9699074074074074,
+      "Aspen": 0.9537037037037037,
+      "Douglas-fir": 0.8449074074074074,
+      "Krummholz": 0.9814814814814815
+    }
+  },
+  "KNN (Scaled)": {
+    "accuracy": 0.7701719576719577,
+    "macro_precision": 0.7649663385806809,
+    "macro_recall": 0.7701719576719578,
+    "macro_f1": 0.7650925039306581,
+    "per_class_f1": {
+      "Spruce/Fir": 0.6814469078179697,
+      "Lodgepole Pine": 0.5932642487046632,
+      "Ponderosa Pine": 0.6813186813186813,
+      "Cottonwood/Willow": 0.9078801331853497,
+      "Aspen": 0.8301075268817204,
+      "Douglas-fir": 0.7301231802911534,
+      "Krummholz": 0.9315068493150684
+    },
+    "per_class_precision": {
+      "Spruce/Fir": 0.6870588235294117,
+      "Lodgepole Pine": 0.6735294117647059,
+      "Ponderosa Pine": 0.7209302325581395,
+      "Cottonwood/Willow": 0.8720682302771855,
+      "Aspen": 0.7751004016064257,
+      "Douglas-fir": 0.7071583514099783,
+      "Krummholz": 0.918918918918919
+    },
+    "per_class_recall": {
+      "Spruce/Fir": 0.6759259259259259,
+      "Lodgepole Pine": 0.5300925925925926,
+      "Ponderosa Pine": 0.6458333333333334,
+      "Cottonwood/Willow": 0.9467592592592593,
+      "Aspen": 0.8935185185185185,
+      "Douglas-fir": 0.7546296296296297,
+      "Krummholz": 0.9444444444444444
+    }
+  },
+  "Multinomial Logistic Regression": {
+    "accuracy": 0.6911375661375662,
+    "macro_precision": 0.6882262724378458,
+    "macro_recall": 0.6911375661375662,
+    "macro_f1": 0.6884555320676842,
+    "per_class_f1": {
+      "Spruce/Fir": 0.655328798185941,
+      "Lodgepole Pine": 0.5477386934673367,
+      "Ponderosa Pine": 0.5419198055893074,
+      "Cottonwood/Willow": 0.8449438202247191,
+      "Aspen": 0.7449664429530202,
+      "Douglas-fir": 0.6114790286975718,
+      "Krummholz": 0.8728121353558926
+    },
+    "per_class_precision": {
+      "Spruce/Fir": 0.6422222222222222,
+      "Lodgepole Pine": 0.5989010989010989,
+      "Ponderosa Pine": 0.5703324808184144,
+      "Cottonwood/Willow": 0.8209606986899564,
+      "Aspen": 0.7207792207792207,
+      "Douglas-fir": 0.5843881856540084,
+      "Krummholz": 0.88
+    },
+    "per_class_recall": {
+      "Spruce/Fir": 0.6689814814814815,
+      "Lodgepole Pine": 0.5046296296296297,
+      "Ponderosa Pine": 0.5162037037037037,
+      "Cottonwood/Willow": 0.8703703703703703,
+      "Aspen": 0.7708333333333334,
+      "Douglas-fir": 0.6412037037037037,
+      "Krummholz": 0.8657407407407407
+    }
+  },
+  "Random Forest": {
+    "accuracy": 0.8472222222222222,
+    "macro_precision": 0.8442774559311053,
+    "macro_recall": 0.8472222222222222,
+    "macro_f1": 0.8441645656003198,
+    "per_class_f1": {
+      "Spruce/Fir": 0.7619047619047619,
+      "Lodgepole Pine": 0.6922094508301405,
+      "Ponderosa Pine": 0.8066037735849056,
+      "Cottonwood/Willow": 0.958904109589041,
+      "Aspen": 0.9026548672566371,
+      "Douglas-fir": 0.8402234636871508,
+      "Krummholz": 0.9466515323496028
+    },
+    "per_class_precision": {
+      "Spruce/Fir": 0.7645687645687645,
+      "Lodgepole Pine": 0.7720797720797721,
+      "Ponderosa Pine": 0.8221153846153846,
+      "Cottonwood/Willow": 0.9459459459459459,
+      "Aspen": 0.864406779661017,
+      "Douglas-fir": 0.8120950323974082,
+      "Krummholz": 0.9287305122494433
+    },
+    "per_class_recall": {
+      "Spruce/Fir": 0.7592592592592593,
+      "Lodgepole Pine": 0.6273148148148148,
+      "Ponderosa Pine": 0.7916666666666666,
+      "Cottonwood/Willow": 0.9722222222222222,
+      "Aspen": 0.9444444444444444,
+      "Douglas-fir": 0.8703703703703703,
+      "Krummholz": 0.9652777777777778
+    }
+  },
+  "Extra Trees": {
+    "accuracy": 0.857473544973545,
+    "macro_precision": 0.8554296626781374,
+    "macro_recall": 0.8574735449735449,
+    "macro_f1": 0.8552895000058741,
+    "per_class_f1": {
+      "Spruce/Fir": 0.7701283547257877,
+      "Lodgepole Pine": 0.7252195734002509,
+      "Ponderosa Pine": 0.8243559718969555,
+      "Cottonwood/Willow": 0.963302752293578,
+      "Aspen": 0.9082872928176795,
+      "Douglas-fir": 0.8484848484848485,
+      "Krummholz": 0.9472477064220184
+    },
+    "per_class_precision": {
+      "Spruce/Fir": 0.7764705882352941,
+      "Lodgepole Pine": 0.7917808219178082,
+      "Ponderosa Pine": 0.8341232227488151,
+      "Cottonwood/Willow": 0.9545454545454546,
+      "Aspen": 0.86892177589852,
+      "Douglas-fir": 0.8235294117647058,
+      "Krummholz": 0.9386363636363636
+    },
+    "per_class_recall": {
+      "Spruce/Fir": 0.7638888888888888,
+      "Lodgepole Pine": 0.6689814814814815,
+      "Ponderosa Pine": 0.8148148148148148,
+      "Cottonwood/Willow": 0.9722222222222222,
+      "Aspen": 0.9513888888888888,
+      "Douglas-fir": 0.875,
+      "Krummholz": 0.9560185185185185
+    }
+  },
+  "LightGBM": {
+    "accuracy": 0.8604497354497355,
+    "macro_precision": 0.8577962331074712,
+    "macro_recall": 0.8604497354497355,
+    "macro_f1": 0.8580775603023391,
+    "per_class_f1": {
+      "Spruce/Fir": 0.7615740740740741,
+      "Lodgepole Pine": 0.7026348808030113,
+      "Ponderosa Pine": 0.8411214953271028,
+      "Cottonwood/Willow": 0.9667049368541906,
+      "Aspen": 0.9155555555555556,
+      "Douglas-fir": 0.8671171171171171,
+      "Krummholz": 0.9518348623853211
+    },
+    "per_class_precision": {
+      "Spruce/Fir": 0.7615740740740741,
+      "Lodgepole Pine": 0.7671232876712328,
+      "Ponderosa Pine": 0.8490566037735849,
+      "Cottonwood/Willow": 0.958997722095672,
+      "Aspen": 0.8803418803418803,
+      "Douglas-fir": 0.8442982456140351,
+      "Krummholz": 0.9431818181818182
+    },
+    "per_class_recall": {
+      "Spruce/Fir": 0.7615740740740741,
+      "Lodgepole Pine": 0.6481481481481481,
+      "Ponderosa Pine": 0.8333333333333334,
+      "Cottonwood/Willow": 0.9745370370370371,
+      "Aspen": 0.9537037037037037,
+      "Douglas-fir": 0.8912037037037037,
+      "Krummholz": 0.9606481481481481
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "selected_model": "Extra Trees (n_estimators=300)",
+  "submission_file": "submission.csv",
+  "test_rows": 565892,
+  "full_test_accuracy": 0.746572,
+  "full_test_macro_f1": 0.629832,
+  "simulated_kaggle_public_accuracy": 0.746677,
+  "simulated_kaggle_private_accuracy": 0.746527,
+  "per_class_test_f1": {
+    "Spruce/Fir": 0.7688,
+    "Lodgepole Pine": 0.7661,
+    "Ponderosa Pine": 0.8131,
+    "Cottonwood/Willow": 0.3617,
+    "Aspen": 0.3356,
+    "Douglas-fir": 0.6445,
+    "Krummholz": 0.719
+  },
+  "test_pred_distribution": {
+    "1": 209639,
+    "2": 226572,
+    "3": 35759,
+    "4": 2592,
+    "5": 34174,
+    "6": 26042,
+    "7": 31114
+  }
+}

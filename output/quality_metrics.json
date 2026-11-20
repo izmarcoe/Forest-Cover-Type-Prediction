@@ -1,0 +1,139 @@
+{
+  "n_train_rows": 15120,
+  "n_train_cols": 56,
+  "n_test_rows": 565892,
+  "n_test_cols": 55,
+  "missing_train": 0,
+  "missing_test": 0,
+  "dup_train_ids": 0,
+  "dup_test_ids": 0,
+  "dup_train_feature_rows": 0,
+  "train_id_unique": true,
+  "test_id_unique": true,
+  "id_overlap": 0,
+  "train_wild_exact_one": true,
+  "train_soil_exact_one": true,
+  "test_wild_exact_one": true,
+  "test_soil_exact_one": true,
+  "constant_train_cols": [
+    "Soil_Type7",
+    "Soil_Type15",
+    "wilderness_sum",
+    "soil_sum"
+  ],
+  "constant_test_cols": [
+    "wilderness_sum",
+    "soil_sum"
+  ],
+  "class_counts": {
+    "1": 2160,
+    "2": 2160,
+    "3": 2160,
+    "4": 2160,
+    "5": 2160,
+    "6": 2160,
+    "7": 2160
+  },
+  "continuous_ranges": {
+    "Elevation": {
+      "train_min": 1863.0,
+      "train_max": 3849.0,
+      "train_mean": 2749.3225529100528,
+      "train_std": 417.6781873480493,
+      "test_min": 1859.0,
+      "test_max": 3858.0,
+      "test_mean": 2964.9774073498124,
+      "test_std": 273.15702951344
+    },
+    "Aspect": {
+      "train_min": 0.0,
+      "train_max": 360.0,
+      "train_mean": 156.67665343915343,
+      "train_std": 110.08580138610438,
+      "test_min": 0.0,
+      "test_max": 360.0,
+      "test_mean": 155.62955829027447,
+      "test_std": 111.96211993175709
+    },
+    "Slope": {
+      "train_min": 0.0,
+      "train_max": 52.0,
+      "train_mean": 16.501587301587303,
+      "train_std": 8.453926761999572,
+      "test_min": 0.0,
+      "test_max": 66.0,
+      "test_mean": 14.039634771299117,
+      "test_std": 7.45015545841754
+    },
+    "Horizontal_Distance_To_Hydrology": {
+      "train_min": 0.0,
+      "train_max": 1343.0,
+      "train_mean": 227.19570105820105,
+      "train_std": 210.0752957023901,
+      "test_min": 0.0,
+      "test_max": 1397.0,
+      "test_mean": 270.5566221116397,
+      "test_std": 212.50015302864313
+    },
+    "Vertical_Distance_To_Hydrology": {
+      "train_min": -146.0,
+      "train_max": 554.0,
+      "train_mean": 51.076521164021166,
+      "train_std": 61.23940612944461,
+      "test_min": -173.0,
+      "test_max": 601.0,
+      "test_mean": 46.29440776685304,
+      "test_std": 58.20946933237801
+    },
+    "Horizontal_Distance_To_Roadways": {
+      "train_min": 0.0,
+      "train_max": 6890.0,
+      "train_mean": 1714.0232142857142,
+      "train_std": 1325.066358169258,
+      "test_min": 0.0,
+      "test_max": 7117.0,
+      "test_mean": 2367.1431156475087,
+      "test_std": 1561.482001591124
+    },
+    "Hillshade_9am": {
+      "train_min": 0.0,
+      "train_max": 254.0,
+      "train_mean": 212.70429894179895,
+      "train_std": 30.561286886177,
+      "test_min": 0.0,
+      "test_max": 254.0,
+      "test_mean": 212.13113279565712,
+      "test_std": 26.661062997450227
+    },
+    "Hillshade_Noon": {
+      "train_min": 99.0,
+      "train_max": 254.0,
+      "train_mean": 218.96560846560845,
+      "train_std": 22.801965544098575,
+      "test_min": 0.0,
+      "test_max": 254.0,
+      "test_mean": 223.4350264714822,
+      "test_std": 19.66805272992057
+    },
+    "Hillshade_3pm": {
+      "train_min": 0.0,
+      "train_max": 248.0,
+      "train_mean": 135.09199735449735,
+      "train_std": 45.89518870821424,
+      "test_min": 0.0,
+      "test_max": 254.0,
+      "test_mean": 142.7269514324288,
+      "test_std": 38.03009388206118
+    },
+    "Horizontal_Distance_To_Fire_Points": {
+      "train_min": 0.0,
+      "train_max": 6993.0,
+      "train_mean": 1511.1472883597883,
+      "train_std": 1099.9364926736125,
+      "test_min": 0.0,
+      "test_max": 7173.0,
+      "test_mean": 1992.8262265591313,
+      "test_std": 1327.3968948726542
+    }
+  }
+}
