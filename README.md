@@ -1,7 +1,7 @@
 # Forest Cover Type Prediction — Multiclass Machine Learning Benchmark
 
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Kaggle Competition](https://img.shields.io/badge/Kaggle-Forest--Cover--Type-20BEFF.svg)](https://www.kaggle.com/competitions/forest-cover-type-prediction)
 [![Model Accuracy](https://img.shields.io/badge/Validation%20Acc-85.75%25-brightgreen.svg)]()
 [![Macro F1](https://img.shields.io/badge/Macro%20F1-0.855-green.svg)]()
@@ -121,7 +121,7 @@ Starting from 54 raw cartographic variables, 12 domain-enriched features were co
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/Forest-Cover-Type-Prediction.git
+git clone https://github.com/izmarcoe/Forest-Cover-Type-Prediction.git
 cd Forest-Cover-Type-Prediction
 ```
 
@@ -156,4 +156,4 @@ Simply double-click or open `analysis_report.html` in any web browser to view th
 
 ## 📝 License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the Apache 2.0 License. See `LICENSE` for more information.
